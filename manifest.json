@@ -1,0 +1,30 @@
+{
+    "manifest_version": 2,
+
+    "name": "crux",
+    "description": "A chrome tab manager based on vim, tmux, tux, and all the fuzzy search plugins for everything.",
+    "version": "1.0",
+    "offline_enabled": true,
+    /* "options_page": "options.html", */
+    "permissions": [
+        "https://secure.flickr.com/",
+        "tabs", "notifications", "storage", "unlimitedStorage", "idle", "chrome://favicon/" 
+    ],
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "Crux - Tabs"
+        /* "default_popup": "popup.html" */
+    },
+    "background": {
+        "scripts": ["dry.underscore.js", "background.js"]
+    },
+    "commands": {
+        "toggle_tab_list": {
+            "suggested_key": {
+                "default": "Ctrl+L",
+                "mac": "MacCtrl+L"
+            },
+            "description": "Toggle Tab List"
+        }
+    }  
+}
