@@ -2,28 +2,6 @@
 
 _.log.level("debug");
 
-var windows = {};
-
-windows.focus_window = function(window_id, callback){
-    callback = callback || _.noop;
-    if(window_id === null){ return callback(); }
-
-    chrome.windows.get(window_id, function(win){
-        if(!win){ return callback(false); }
-        chrome.windows.update(window_id, { focused: true }, function(){ callback(true); });
-    });
-};
-
-var tabs = {};
-
-tabs.focus_tab = function(window_id, tab_id, callback){
-    chrome.tabs.update(tab_id, { active: true }, function(){
-        chrome.windows.update(window_id, { focused: true }, function(){
-            if(callback){ callback(); }
-        })   
-    });
-}
-
 function application_window(url){
     var self = this;
 
@@ -136,12 +114,47 @@ function toggle_window(){
     }
 }
 
+function find_next_window(wins){
+
+    _.log.debug(wins);
+
+    var current_window_index = 0;
+    _.find(wins, function(w){
+        if(w.focused){ return(true); }
+        current_window_index++;
+    });
+
+    wins = _.concat(wins.slice(current_window_index), wins.slice(0, current_window_index));
+
+    var current = wins.shift();
+
+    var next = _.find(wins, function(w){
+        return(w.state != "minimized" && w.id != tab_window.window_id());
+    });
+
+    return(next);
+}
+
+function next_window(){
+    chrome.windows.getAll(function(wins){
+        var next = find_next_window(wins);
+        windows.focus_window(next.id);
+    });
+}
+
+function next_tab(){ tabs.activate_tab_with_offset(1); }
+function previous_tab(){ tabs.activate_tab_with_offset(-1); }
+
 chrome.browserAction.onClicked.addListener(function(event){
-    toggle_window();
+    _.log.debug("browserAction");
+    // toggle_window();
 });
 
 chrome.commands.onCommand.addListener(function(command) {
     if(command === "toggle_tab_list"){ toggle_window(); }
+    else if(command === "next_window"){ next_window(); }
+    else if(command === "next_tab"){ next_tab(); }
+    else if(command === "previous_tab"){ previous_tab(); }
 });
 
 /*

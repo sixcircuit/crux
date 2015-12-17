@@ -3,19 +3,27 @@
     <head>
         <title>Tab List - Crux</title>
         <style>
+            body{
+                max-width: 100%;
+            }
             .cursor{
                 background-color: red;
             }
             tr:hover{
-                background-color: blue;
+                /* background-color: blue; */
+            }
+            .search{
+                width: 100%;
             }
         </style>
 
+        <script src="utility.js"></script>
         <script src="jquery-2.1.1.min.js"></script>
         <script src="dry.underscore.js"></script>
         <script src="popup.js"></script>
     </head>
     <body>
+        <input type="text" class="search"></input>
         <table class="tab_list_table">
             <thead class="tab_list_head">
                 <tr>

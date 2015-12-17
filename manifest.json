@@ -16,7 +16,7 @@
         /* "default_popup": "popup.html" */
     },
     "background": {
-        "scripts": ["dry.underscore.js", "background.js"]
+        "scripts": ["utility.js", "dry.underscore.js", "background.js"]
     },
     "commands": {
         "toggle_tab_list": {
@@ -25,6 +25,27 @@
                 "mac": "MacCtrl+L"
             },
             "description": "Toggle Tab List"
+        },
+        "next_window": {
+            "suggested_key": {
+                "default": "Ctrl+N",
+                "mac": "MacCtrl+N"
+            },
+            "description": "Next Window"
+        },
+        "next_tab": {
+            "suggested_key": {
+                "default": "Ctrl+T",
+                "mac": "MacCtrl+T"
+            },
+            "description": "Next Tab"
+        },
+        "previous_tab": {
+            "suggested_key": {
+                "default": "Ctrl+P",
+                "mac": "MacCtrl+P"
+            },
+            "description": "Previous Tab"
         }
     }  
 }
